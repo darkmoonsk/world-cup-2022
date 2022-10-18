@@ -1,25 +1,282 @@
-import logo from './logo.svg';
-import './App.css';
+import styled from "styled-components";
+import Group from "./components/Group";
+import Match from "./components/Match";
+import Stage from "./components/Stage";
+import StageFinals from "./components/StageFinals";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Background src="./images/soccerball.png" />
+      <Logo alt="Logo da copa do mundo 2022" src="./images/fifa-world-cup2.png" />
+      <Groups>
+        <LeftGroupsStage>
+          <TitleGroupStageLeft>
+            <Stage title="Fase de grupos" />
+          </TitleGroupStageLeft>
+          <Group name="Grupo A" />
+          <Group name="Grupo B" />
+          <Group name="Grupo C" />
+          <Group name="Grupo D" />
+        </LeftGroupsStage>
+
+        <Round16Left>
+          <TitleRound16Left>
+            <Stage title="Oitavas de final" />
+          </TitleRound16Left>
+          <Match />
+          <Match />
+          <Match />
+          <Match />
+        </Round16Left>
+
+        <Round8Left>
+          <TitleRound8Left>
+            <Stage title="Quartas de final" />
+          </TitleRound8Left>
+          <Match />
+          <Match />
+        </Round8Left>
+
+        <Round4Left>
+          <TitleRound4>
+            <StageFinals title="Semifinal" />
+          </TitleRound4>
+          <Match />
+        </Round4Left>
+
+        <Final>
+          <TitleFinal>
+            <StageFinals title="Final" />
+          </TitleFinal>
+          <Match />
+        </Final>
+
+        <Round4Right>
+          <Match />
+        </Round4Right>
+
+        <Round8Right>
+          <TitleRound8Right>
+            <Stage title="Quartas de Final" />
+          </TitleRound8Right>
+          <Match />
+          <Match />
+        </Round8Right>
+
+        <Round16Right>
+          <TitleRound16Right>
+            <Stage title="Oitavas de Final" />
+          </TitleRound16Right>
+          <Match />
+          <Match />
+          <Match />
+          <Match />
+        </Round16Right>
+
+        <RightGroupsStage>
+          <TitleGroupStageRight>
+            <Stage title="Fase de grupos" />
+          </TitleGroupStageRight>
+          <Group name="Grupo E" />
+          <Group name="Grupo G" />
+          <Group name="Grupo F" />
+          <Group name="Grupo H" />
+        </RightGroupsStage>
+      </Groups>
+
+      <Button>Simule já!</Button>
+    </Container>
   );
 }
 
 export default App;
+
+const Background = styled.img`
+    position: fixed;
+    z-index: -1;
+    top: 5%;
+    left: 28%;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 800px;
+    opacity: 0.035;
+    
+`
+
+const Container = styled.div`
+  position: relative;
+  margin: 0px auto;
+  margin-top: 30px;
+  max-width: 100%;
+`
+
+const Logo = styled.img`
+  position: fixed;
+  top: 2%;
+  left: 41%;
+  width: 320px;
+`
+
+const Groups = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: space-between;
+`
+
+const LeftGroupsStage = styled.div`
+  margin-left: 5%;
+  display: flex;
+  gap: 22px;
+  flex-direction: column;
+`
+
+const RightGroupsStage = styled.div`
+  margin-right: 5%;
+  display: flex;
+  gap: 22px;
+  flex-direction: column;
+`
+
+const Round16Left = styled.div`
+  position: fixed;
+  top: 15%;
+  left: 20%;
+  display: flex;
+  gap: 80px;
+  flex-direction: column;
+`
+
+const Round16Right = styled.div`
+  position: fixed;
+  top: 15%;
+  left: 73%;
+  display: flex;
+  gap: 80px;
+  flex-direction: column;
+`
+
+const Round8Left = styled.div`
+  position: fixed;
+  top: 35%;
+  left: 32%;
+  display: flex;
+  gap: 80px;
+  flex-direction: column;
+`
+
+const Round8Right = styled.div`
+  position: fixed;
+  top: 35%;
+  left: 62%;
+  display: flex;
+  gap: 80px;
+  flex-direction: column;
+`
+
+const Round4Left = styled.div`
+  position: fixed;
+  top: 45%;
+  left: 43%;
+  display: flex;
+  gap: 80px;
+  flex-direction: column;
+`
+
+const Round4Right = styled.div`
+  position: fixed;
+  top: 45%;
+  left: 51%;
+  display: flex;
+  gap: 80px;
+  flex-direction: column;
+`
+
+const Final = styled.div`
+  position: fixed;
+  top: 22%;
+  left: 47%;
+  display: flex;
+  gap: 80px;
+  flex-direction: column;
+`
+
+const TitleGroupStageLeft = styled.div`
+  position: fixed;
+  top: 30%;
+  left: 1%;
+`
+
+const TitleGroupStageRight = styled.div`
+  position: fixed;
+  top: 30%;
+  left: 96%;
+`
+
+const TitleRound16Left = styled.div`
+  position: fixed;
+  top: 28%;
+  left: 16%;
+`
+
+const TitleRound16Right = styled.div`
+  position: fixed;
+  top: 28%;
+  left: 81%;
+`
+
+const TitleRound8Left = styled.div`
+  position: fixed;
+  top: 27%;
+  left: 28%;
+`
+
+const TitleRound8Right = styled.div`
+  position: fixed;
+  top: 27%;
+  left: 69.5%;
+`
+
+const TitleRound4 = styled.div`
+  position: fixed;
+  top: 58%;
+  left: 44%;
+`
+
+const TitleFinal = styled.div`
+  position: fixed;
+  top: 34%;
+  left: 47%;
+`
+
+const Button = styled.button`
+  position: fixed;
+  top: 80%;
+  left: 43%;
+  cursor: pointer;
+  font-size: 25px;
+  background-image: linear-gradient(
+    to right,
+    #c04848 0%,
+    #480048 51%,
+    #c04848 100%
+  );
+  margin: 10px;
+  padding: 21px 65px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #da6832;
+  border-radius: 10px;
+  display: block;
+
+  &:hover {
+    background-position: right center; 
+    color: #fff;
+    text-decoration: none;
+  }
+`
