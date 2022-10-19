@@ -3,10 +3,10 @@ import styled from "styled-components";
 function Team(props) {
   return (
     <Container>
-        <td>1 {props.name}</td>
-        <td>0</td>
-        <td>0</td>
-        <td>0</td>
+        <td>{`${props.id} ${props.name}`}</td>
+        <td>{props.points? props.points : 0}</td>
+        <td>{props.victories? props.victories : 0}</td>
+        <td>{props.sg? props.sg : 0}</td>
     </Container>
   )
 }

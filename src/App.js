@@ -26,14 +26,58 @@ function App() {
   }
 
   useEffect(() => {
-    console.log(teams); 
-    setGroups(simulator.makeGroups(teams));
-    
-  }, [teams])
-
-  useEffect(() => {
     handleGetTeams();
   }, [])
+
+  useEffect(() => {
+    if(groups){
+      console.log(groups);
+    } 
+  }, [groups])
+
+  useEffect(() => {
+    if(teams){
+      console.log(teams); 
+      setGroups(simulator.makeGroups(teams));
+    }     
+  }, [teams])
+
+  const handlePlayMatchsGroups = (groups) => {
+      const toComparePointsSGRandom = (a, b) => {
+        if(a.points > b.points){
+          return -1;
+        }else if(a.points < b.points){
+          return true;
+        }else {
+          if(a.sg > b.sg){
+            return -1;
+          }else if(a.sg < b.sg) {
+            return true;
+          } else {
+            const randomChoose = [true,false];
+            return randomChoose[Math.ceil(Math.random() * 2)];
+          }
+          
+        }
+      }
+      const groupA = simulator.playMatchsGroup(groups.groupA).sort(toComparePointsSGRandom);
+      const groupB = simulator.playMatchsGroup(groups.groupB).sort(toComparePointsSGRandom);
+      const groupC = simulator.playMatchsGroup(groups.groupC).sort(toComparePointsSGRandom);
+      const groupD = simulator.playMatchsGroup(groups.groupD).sort(toComparePointsSGRandom);
+      const groupE = simulator.playMatchsGroup(groups.groupE).sort(toComparePointsSGRandom);
+      const groupF = simulator.playMatchsGroup(groups.groupF).sort(toComparePointsSGRandom);
+      const groupG = simulator.playMatchsGroup(groups.groupG).sort(toComparePointsSGRandom);
+      const groupH = simulator.playMatchsGroup(groups.groupH).sort(toComparePointsSGRandom);
+
+
+
+      const newGroups = {groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH}
+
+      
+
+      setGroups(newGroups);
+  }
+  
 
   return (
     <Container>
@@ -115,7 +159,7 @@ function App() {
         </RightGroupsStage>
       </Groups>
 
-      <Button>Simule já!</Button>
+      <Button onClick={() => handlePlayMatchsGroups(groups)}>Simule já!</Button>
     </Container>
   );
 }
