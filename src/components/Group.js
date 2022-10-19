@@ -1,12 +1,26 @@
 
 import styled from "styled-components"
+import Team from "./Team"
 
 function Group(props) {
   return (
     <GroupContainer>
       <GroupHeader>
-        <h1>{props.name}</h1>
+        <h1>{props.name}</h1>      
       </GroupHeader>
+      <TeamsTable>
+        <tr>
+          <th>Classificação</th>
+          <th>P</th>
+          <th>V</th>
+          <th>SG</th>
+        </tr>
+
+        {props.teams?.map(team => (
+            <Team key={team.Token} name={team.Name} />
+          ))}       
+      </TeamsTable>
+      
     </GroupContainer>
   )
 }
@@ -35,4 +49,9 @@ const GroupHeader = styled.div`
       color: #df7000;
       font-size: 18px;
     }
+`
+
+const TeamsTable = styled.table`
+    padding: 5px 5px;
+
 `

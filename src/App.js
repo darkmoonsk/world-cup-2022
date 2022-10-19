@@ -1,10 +1,40 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Group from "./components/Group";
 import Match from "./components/Match";
 import Stage from "./components/Stage";
 import StageFinals from "./components/StageFinals";
+import simulator from "./simulator";
 
 function App() {
+  const [teams, setTeams] = useState();
+  const [groups, setGroups] = useState(null);
+
+  const handleGetTeams = async () => {
+    const options = {
+      method: "GET",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        "git-user": "darkmoonsk"
+        
+      })
+    }
+
+    const data = await fetch("https://estagio.geopostenergy.com/WorldCup/GetAllTeams", options);
+    const teamsData = await data.json();
+    setTeams(teamsData.Result);
+  }
+
+  useEffect(() => {
+    console.log(teams); 
+    setGroups(simulator.makeGroups(teams));
+    
+  }, [teams])
+
+  useEffect(() => {
+    handleGetTeams();
+  }, [])
+
   return (
     <Container>
       <Background src="./images/soccerball.png" />
@@ -14,10 +44,10 @@ function App() {
           <TitleGroupStageLeft>
             <Stage title="Fase de grupos" />
           </TitleGroupStageLeft>
-          <Group name="Grupo A" />
-          <Group name="Grupo B" />
-          <Group name="Grupo C" />
-          <Group name="Grupo D" />
+          <Group name="Grupo A" teams={groups?.groupA} />
+          <Group name="Grupo B" teams={groups?.groupB}/>
+          <Group name="Grupo C" teams={groups?.groupC}/>
+          <Group name="Grupo D" teams={groups?.groupD}/>
         </LeftGroupsStage>
 
         <Round16Left>
@@ -78,10 +108,10 @@ function App() {
           <TitleGroupStageRight>
             <Stage title="Fase de grupos" />
           </TitleGroupStageRight>
-          <Group name="Grupo E" />
-          <Group name="Grupo G" />
-          <Group name="Grupo F" />
-          <Group name="Grupo H" />
+          <Group name="Grupo E" teams={groups?.groupE}/>
+          <Group name="Grupo F" teams={groups?.groupF}/>
+          <Group name="Grupo G" teams={groups?.groupG}/>
+          <Group name="Grupo H" teams={groups?.groupH}/>
         </RightGroupsStage>
       </Groups>
 

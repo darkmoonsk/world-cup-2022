@@ -4,9 +4,9 @@ function Match() {
   return (
     <TheMatch>
         
-        <p>Brasil</p>
+        {/* <p>Brasil</p>
         <p>X</p>
-        <p>Alemanha</p>
+        <p>Alemanha</p> */}
     </TheMatch>
   )
 }
