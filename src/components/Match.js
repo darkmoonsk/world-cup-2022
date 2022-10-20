@@ -37,10 +37,10 @@ function Match(props) {
     return (
       <TheMatch>        
           <p>{props.match? props.match[0].Name: ""}</p>
-          <p><small>{penalty1? `(${penalty1})` : ""}</small> 
+          <Scoreboard><small>{penalty1? `(${penalty1})` : ""}</small> 
             {props.match? `${props.match[0].round16.goals} X ${props.match[1].round16.goals}`: "" }
             <small>{penalty1? `(${penalty2})` : ""}</small>
-          </p>      
+          </Scoreboard>      
           <p>{props.match? props.match[1].Name: ""}</p>
       </TheMatch>
     )
@@ -51,10 +51,10 @@ function Match(props) {
       <TheMatch>
           
           <p>{props.match? props.match[0].Name: ""}</p>
-          <p><small>{penalty1? `(${penalty1})` : ""}</small> 
+          <Scoreboard><small>{penalty1? `(${penalty1})` : ""}</small> 
             {props.match? `${props.match[0].round8.goals} X ${props.match[1].round8.goals}`: "" }
             <small>{penalty1? `(${penalty2})` : ""}</small>
-          </p>      
+          </Scoreboard>      
           <p>{props.match? props.match[1].Name: ""}</p>
       </TheMatch> 
     )
@@ -65,10 +65,10 @@ function Match(props) {
       <TheMatch>
           
           <p>{props.match? props.match[0].Name: ""}</p>
-          <p><small>{penalty1? `(${penalty1})` : ""}</small> 
+          <Scoreboard><small>{penalty1? `(${penalty1})` : ""}</small> 
             {props.match? `${props.match[0].round4.goals} X ${props.match[1].round4.goals}`: "" }
             <small>{penalty1? `(${penalty2})` : ""}</small>
-          </p>      
+          </Scoreboard>      
           <p>{props.match? props.match[1].Name: ""}</p>
       </TheMatch> 
     )
@@ -79,10 +79,10 @@ function Match(props) {
       <TheMatch>
           
           <p>{props.match? props.match[0].Name: ""}</p>
-          <p><small>{penalty1? `(${penalty1})` : ""}</small> 
+          <Scoreboard><small>{penalty1? `(${penalty1})` : ""}</small> 
             {props.match? `${props.match[0].final.goals} X ${props.match[1].final.goals}`: "" }
             <small>{penalty1? `(${penalty2})` : ""}</small>
-          </p>      
+          </Scoreboard>      
           <p>{props.match? props.match[1].Name: ""}</p>
       </TheMatch> 
     )
@@ -109,6 +109,7 @@ const TheMatch = styled.div`
     background: white;
     border-radius: 15px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    
     p {
         margin-top: 5px;
         text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
@@ -119,7 +120,13 @@ const TheMatch = styled.div`
         small {
           margin: 0px 5px;
         }
-    }
+    }  
 
     border-top: 15px solid rgb(30, 30, 30);
 `
+
+const Scoreboard = styled.p`
+    color: #df7000;
+    font-weight: bold;
+    text-shadow: 3px 2px 2px rgba(0,0,0,0.6);
+` 

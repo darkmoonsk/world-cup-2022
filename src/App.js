@@ -8,13 +8,13 @@ import Modal from "./components/Modal";
 import simulator from "./simulator";
 
 function App() {
+
   const [teams, setTeams] = useState();
   const [groups, setGroups] = useState(null);
   const [round16, setRound16] = useState(null);
   const [round8, setRound8] = useState(null);
   const [round4, setRound4] = useState(null);
-  const [final, setFinal] = useState(null);
-  //const [simulationPlayed, setSimulationPlayed] = useState(false);
+  const [final, setFinal] = useState(null);;
   const [showModal, setShowModal] = useState(false);
 
   const handleGetTeams = async () => {
@@ -56,7 +56,8 @@ function App() {
     }     
   }, [teams])
 
-  const handlePlayMatchs = (groups) => {      
+
+  const handlePlayMatchs = (groups) => { 
     const newGroups =  simulator.playAllGroups(groups);
     setGroups(newGroups);
 
@@ -84,9 +85,9 @@ function App() {
   };
 
   return (
-    <>
-    {showModal? <Modal onClose={handleCloseModal} groups={groups}/> : <></>}
+   
     <Container>
+      {showModal? <Modal onClose={handleCloseModal} groups={groups}/> : <></>}
       <Background src="./images/soccerball.png" />
       <Logo alt="Logo da copa do mundo 2022" src="./images/fifa-world-cup2.png" />
       <Groups>
@@ -100,6 +101,16 @@ function App() {
           <Group name="Grupo D" teams={groups?.groupD}/>
         </LeftGroupsStage>
 
+        <RightGroupsStage>
+          <TitleGroupStageRight>
+            <Stage title="Fase de grupos" />
+          </TitleGroupStageRight>
+          <Group name="Grupo E" teams={groups?.groupE}/>
+          <Group name="Grupo F" teams={groups?.groupF}/>
+          <Group name="Grupo G" teams={groups?.groupG}/>
+          <Group name="Grupo H" teams={groups?.groupH}/>
+        </RightGroupsStage>
+
         <Round16Left>
           <TitleRound16Left>
             <Stage title="Oitavas de final" />
@@ -109,40 +120,6 @@ function App() {
           <Match round={16} match={round16?.round16C} />
           <Match round={16} match={round16?.round16D} />
         </Round16Left>
-
-        <Round8Left>
-          <TitleRound8Left>
-            <Stage title="Quartas de final" />
-          </TitleRound8Left>
-          <Match round={8} match={round8?.round8A} />
-          <Match round={8} match={round8?.round8B} />
-        </Round8Left>
-
-        <Round4Left>
-          <TitleRound4>
-            <StageFinals title="Semifinal" />
-          </TitleRound4>
-          <Match round={4} match={round4?.round4A} />
-        </Round4Left>
-
-        <Final>
-          <TitleFinal>
-            <StageFinals title="Final" />
-          </TitleFinal>
-          <Match round="FINAL" match={final?.roundFinal}/>
-        </Final>
-
-        <Round4Right>
-          <Match round={4} match={round4?.round4B}/>
-        </Round4Right>
-
-        <Round8Right>
-          <TitleRound8Right>
-            <Stage title="Quartas de Final" />
-          </TitleRound8Right>
-          <Match round={8} match={round8?.round8C} />
-          <Match round={8} match={round8?.round8D}/>
-        </Round8Right>
 
         <Round16Right>
           <TitleRound16Right>
@@ -154,21 +131,52 @@ function App() {
           <Match round={16} match={round16?.round16H} />
         </Round16Right>
 
-        <RightGroupsStage>
-          <TitleGroupStageRight>
-            <Stage title="Fase de grupos" />
-          </TitleGroupStageRight>
-          <Group name="Grupo E" teams={groups?.groupE}/>
-          <Group name="Grupo F" teams={groups?.groupF}/>
-          <Group name="Grupo G" teams={groups?.groupG}/>
-          <Group name="Grupo H" teams={groups?.groupH}/>
-        </RightGroupsStage>
+
+          <Round8Left>
+            <TitleRound8Left>
+              <Stage title="Quartas de final" />
+            </TitleRound8Left>
+            <Match round={8} match={round8?.round8A} />
+            <Match round={8} match={round8?.round8B} />
+          </Round8Left>
+
+          <Round8Right>
+            <TitleRound8Right>
+              <Stage title="Quartas de Final" />
+            </TitleRound8Right>
+            <Match round={8} match={round8?.round8C} />
+            <Match round={8} match={round8?.round8D}/>
+          </Round8Right>
+
+
+        <Round4Container>
+          <TitleRound4>
+            <StageFinals title="Semifinal" />
+          </TitleRound4>
+          <Match round={4} match={round4?.round4A} />
+
+          <Match round={4} match={round4?.round4B}/>
+        </Round4Container>
+        
+
+        <Final>
+          <TitleFinal>
+            <StageFinals title="Final" />
+          </TitleFinal>
+          <Match round="FINAL" match={final?.roundFinal}/>
+        </Final>
+
+     
+
+        
+
+        
+
       </Groups>
 
       <Button onClick={() => handlePlayMatchs(groups)}>Simule já!</Button>
     </Container>
-    
-    </>
+
   );
 }
 
@@ -192,6 +200,12 @@ const Container = styled.div`
   margin: 0px auto;
   margin-top: 30px;
   max-width: 100%;
+
+  @media (max-width: 1600px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 const Logo = styled.img`
@@ -199,13 +213,21 @@ const Logo = styled.img`
   top: 2%;
   left: 41%;
   width: 320px;
+
+  @media (max-width: 1700px) {
+    position: static;
+  }
 `
 
 const Groups = styled.div`
   display: flex;
   flex-wrap: wrap;
-  align-content: center;
   justify-content: space-between;
+
+  @media (max-width: 1700px) {
+    position: static;
+  }
+
 `
 
 const LeftGroupsStage = styled.div`
@@ -213,6 +235,15 @@ const LeftGroupsStage = styled.div`
   display: flex;
   gap: 22px;
   flex-direction: column;
+
+  @media (max-width: 1700px) {
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-bottom: 15px;
+  }
 `
 
 const RightGroupsStage = styled.div`
@@ -220,6 +251,15 @@ const RightGroupsStage = styled.div`
   display: flex;
   gap: 22px;
   flex-direction: column;
+
+  @media (max-width: 1700px) {
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-bottom: 15px;
+  }
 `
 
 const Round16Left = styled.div`
@@ -229,6 +269,14 @@ const Round16Left = styled.div`
   display: flex;
   gap: 80px;
   flex-direction: column;
+  
+  @media (max-width: 1700px) {
+    width: 100%;
+    position: static;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 30px;
+  }
 `
 
 const Round16Right = styled.div`
@@ -238,6 +286,14 @@ const Round16Right = styled.div`
   display: flex;
   gap: 80px;
   flex-direction: column;
+
+  @media (max-width: 1700px) {
+    width: 100%;
+    position: static;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 30px;
+  }
 `
 
 const Round8Left = styled.div`
@@ -247,6 +303,14 @@ const Round8Left = styled.div`
   display: flex;
   gap: 80px;
   flex-direction: column;
+
+  @media (max-width: 1700px) {
+    width: 100%;
+    position: static;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 15px;
+  }
 `
 
 const Round8Right = styled.div`
@@ -256,24 +320,31 @@ const Round8Right = styled.div`
   display: flex;
   gap: 80px;
   flex-direction: column;
+   @media (max-width: 1700px) {
+    width: 100%;
+    position: static;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;;
+    margin-bottom: 15px;
+  }
 `
 
-const Round4Left = styled.div`
+const Round4Container = styled.div`
   position: fixed;
   top: 45%;
   left: 43%;
   display: flex;
-  gap: 80px;
-  flex-direction: column;
-`
-
-const Round4Right = styled.div`
-  position: fixed;
-  top: 45%;
-  left: 51%;
-  display: flex;
-  gap: 80px;
-  flex-direction: column;
+  gap: 40px;
+  flex-direction: row;
+  @media (max-width: 1700px) {
+    width: 100%;
+    position: static;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 15px;
+  }
 `
 
 const Final = styled.div`
@@ -283,58 +354,99 @@ const Final = styled.div`
   display: flex;
   gap: 80px;
   flex-direction: column;
+
+  @media (max-width: 1700px) {
+    width: 100%;
+    position: static;
+    gap: 30px;
+    align-items: center;
+    margin-bottom: 15px;
+  }
 `
 
 const TitleGroupStageLeft = styled.div`
   position: fixed;
   top: 30%;
   left: 1%;
+
+  @media (max-width: 1700px) {
+    position: static;
+  }
 `
 
 const TitleGroupStageRight = styled.div`
   position: fixed;
   top: 30%;
   left: 96%;
+
+  @media (max-width: 1700px) {
+    position: static;
+  }
 `
 
 const TitleRound16Left = styled.div`
   position: fixed;
   top: 28%;
   left: 16%;
+
+  @media (max-width: 1700px) {
+    position: static;
+  }
 `
 
 const TitleRound16Right = styled.div`
   position: fixed;
   top: 28%;
   left: 81%;
+
+  @media (max-width: 1700px) {
+    position: static;
+  }
 `
 
 const TitleRound8Left = styled.div`
   position: fixed;
   top: 27%;
   left: 28%;
+
+  @media (max-width: 1700px) {
+    position: static;
+  }
 `
 
 const TitleRound8Right = styled.div`
   position: fixed;
   top: 27%;
   left: 69.5%;
+
+  @media (max-width: 1700px) {
+    position: static;
+  }
 `
 
 const TitleRound4 = styled.div`
   position: fixed;
   top: 58%;
   left: 44%;
+
+  @media (max-width: 1700px) {
+    position: static;
+  }
 `
 
 const TitleFinal = styled.div`
   position: fixed;
   top: 34%;
   left: 47%;
+
+  @media (max-width: 1700px) {
+    position: static;
+  }
 `
 
 const Button = styled.button`
   position: fixed;
+  max-width: 300px;
   top: 80%;
   left: 43%;
   cursor: pointer;
@@ -360,5 +472,9 @@ const Button = styled.button`
     background-position: right center; 
     color: #fff;
     text-decoration: none;
+  }
+
+  @media (max-width: 1700px) {
+    position: static;
   }
 `

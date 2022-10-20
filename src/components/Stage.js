@@ -17,4 +17,8 @@ const Title = styled.p`
     text-transform: uppercase;
     writing-mode: vertical-lr;
     color: #df7000;
+
+    @media (max-width: 1600px) {
+      writing-mode: initial;
+    }
 `
