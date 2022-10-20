@@ -18,7 +18,7 @@ const Title = styled.p`
     writing-mode: vertical-lr;
     color: #df7000;
 
-    @media (max-width: 1600px) {
+    @media (max-width: 1700px) {
       writing-mode: initial;
     }
 `
