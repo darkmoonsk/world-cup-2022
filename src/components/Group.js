@@ -49,6 +49,7 @@ const GroupHeader = styled.div`
     
 
     h1 {
+      user-select: none;
       text-align: center;
       margin: 0;
       color: #df7000;
@@ -57,6 +58,7 @@ const GroupHeader = styled.div`
 `
 
 const TeamsTable = styled.table`
+    user-select: none;
     padding: 5px 5px;
 
 `

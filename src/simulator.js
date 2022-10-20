@@ -193,6 +193,38 @@ makeGroups: function makeGroups(teams){
         (newGroup[3].goals.round3 - newGroup[0].goals.round3);
       
         return newGroup;
+      },
+
+    playAllGroups: function (groups) {
+      const toComparePointsSGRandom = (a, b) => {
+        if(a.points > b.points){
+          return -1;
+        }else if(a.points < b.points){
+          return true;
+        }else {
+          if(a.sg > b.sg){
+            return -1;
+          }else if(a.sg < b.sg) {
+              return true;
+            } else {
+              const randomChoose = [true,false];
+              return randomChoose[Math.ceil(Math.random() * 2)];
+            }          
+        }
       }
+  
+      const groupA = simulator.playMatchsGroup(groups.groupA).sort(toComparePointsSGRandom);
+      const groupB = simulator.playMatchsGroup(groups.groupB).sort(toComparePointsSGRandom);
+      const groupC = simulator.playMatchsGroup(groups.groupC).sort(toComparePointsSGRandom);
+      const groupD = simulator.playMatchsGroup(groups.groupD).sort(toComparePointsSGRandom);
+      const groupE = simulator.playMatchsGroup(groups.groupE).sort(toComparePointsSGRandom);
+      const groupF = simulator.playMatchsGroup(groups.groupF).sort(toComparePointsSGRandom);
+      const groupG = simulator.playMatchsGroup(groups.groupG).sort(toComparePointsSGRandom);
+      const groupH = simulator.playMatchsGroup(groups.groupH).sort(toComparePointsSGRandom);
+  
+      const newGroups = {groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH}
+
+      return newGroups;
+    }
 }
 export default simulator;

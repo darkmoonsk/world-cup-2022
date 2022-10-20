@@ -4,11 +4,14 @@ import Group from "./components/Group";
 import Match from "./components/Match";
 import Stage from "./components/Stage";
 import StageFinals from "./components/StageFinals";
+import Modal from "./components/Modal";
 import simulator from "./simulator";
 
 function App() {
   const [teams, setTeams] = useState();
   const [groups, setGroups] = useState(null);
+  //const [simulationPlayed, setSimulationPlayed] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const handleGetTeams = async () => {
     const options = {
@@ -42,44 +45,20 @@ function App() {
     }     
   }, [teams])
 
-  const handlePlayMatchsGroups = (groups) => {
-      const toComparePointsSGRandom = (a, b) => {
-        if(a.points > b.points){
-          return -1;
-        }else if(a.points < b.points){
-          return true;
-        }else {
-          if(a.sg > b.sg){
-            return -1;
-          }else if(a.sg < b.sg) {
-            return true;
-          } else {
-            const randomChoose = [true,false];
-            return randomChoose[Math.ceil(Math.random() * 2)];
-          }
-          
-        }
-      }
-      const groupA = simulator.playMatchsGroup(groups.groupA).sort(toComparePointsSGRandom);
-      const groupB = simulator.playMatchsGroup(groups.groupB).sort(toComparePointsSGRandom);
-      const groupC = simulator.playMatchsGroup(groups.groupC).sort(toComparePointsSGRandom);
-      const groupD = simulator.playMatchsGroup(groups.groupD).sort(toComparePointsSGRandom);
-      const groupE = simulator.playMatchsGroup(groups.groupE).sort(toComparePointsSGRandom);
-      const groupF = simulator.playMatchsGroup(groups.groupF).sort(toComparePointsSGRandom);
-      const groupG = simulator.playMatchsGroup(groups.groupG).sort(toComparePointsSGRandom);
-      const groupH = simulator.playMatchsGroup(groups.groupH).sort(toComparePointsSGRandom);
+  const handlePlayMatchsGroups = (groups) => {      
+    const newGroups =  simulator.playAllGroups(groups);
+    setGroups(newGroups);
 
-
-
-      const newGroups = {groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH}
-
-      
-
-      setGroups(newGroups);
+    setShowModal(true);
   }
   
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   return (
+    <>
+    {showModal? <Modal onClose={handleCloseModal} groups={groups}/> : <></>}
     <Container>
       <Background src="./images/soccerball.png" />
       <Logo alt="Logo da copa do mundo 2022" src="./images/fifa-world-cup2.png" />
@@ -161,6 +140,8 @@ function App() {
 
       <Button onClick={() => handlePlayMatchsGroups(groups)}>Simule já!</Button>
     </Container>
+    
+    </>
   );
 }
 
