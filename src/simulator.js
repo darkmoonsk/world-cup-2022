@@ -53,7 +53,422 @@ makeGroups: function makeGroups(teams){
     return {groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH} 
     },
 
-    playMatchsGroup: function playMatchsGroup(group) {
+    makeRound16: function (groups) {
+        let round16A = []
+        let round16B = []
+        let round16C = []
+        let round16D = []
+        let round16E = []
+        let round16F = []
+        let round16G = []
+        let round16H = []
+
+        round16A.push(groups.groupA[0]);
+        round16A.push(groups.groupB[1]);
+
+        round16B.push(groups.groupC[0]);
+        round16B.push(groups.groupD[1]);
+
+        round16C.push(groups.groupE[0]);
+        round16C.push(groups.groupF[1]);
+
+        round16D.push(groups.groupG[0]);
+        round16D.push(groups.groupH[1]);
+
+        round16E.push(groups.groupB[0]);
+        round16E.push(groups.groupA[1]);
+
+        round16F.push(groups.groupD[0]);
+        round16F.push(groups.groupC[1]);
+
+        round16G.push(groups.groupF[0]);
+        round16G.push(groups.groupE[1]);
+
+        round16H.push(groups.groupH[0]);
+        round16H.push(groups.groupG[1]);
+
+        return {round16A, round16B, round16C, round16D, round16E, round16F, round16G, round16H}
+    },
+
+    makeRound8: function (groups) {
+      let round8A = []
+      let round8B = []
+      let round8C = []
+      let round8D = []
+
+      if(groups.round16A[0].round16.result === "V"){
+        round8A.push(groups.round16A[0]);
+      }else {
+        round8A.push(groups.round16A[1]);
+      }
+
+      if(groups.round16B[0].round16.result === "V"){
+        round8A.push(groups.round16B[0]);
+      }else {
+        round8A.push(groups.round16B[1]);
+      }
+
+      if(groups.round16C[0].round16.result === "V"){
+        round8B.push(groups.round16C[0]);
+      }else {
+        round8B.push(groups.round16C[1]);
+      }
+
+      if(groups.round16D[0].round16.result === "V"){
+        round8B.push(groups.round16D[0]);
+      }else {
+        round8B.push(groups.round16D[1]);
+      }
+
+      if(groups.round16E[0].round16.result === "V"){
+        round8C.push(groups.round16E[0]);
+      }else {
+        round8C.push(groups.round16E[1]);
+      }
+
+      if(groups.round16F[0].round16.result === "V"){
+        round8C.push(groups.round16F[0]);
+      }else {
+        round8C.push(groups.round16F[1]);
+      }
+
+      if(groups.round16G[0].round16.result === "V"){
+        round8D.push(groups.round16G[0]);
+      }else {
+        round8D.push(groups.round16G[1]);
+      }
+
+      if(groups.round16H[0].round16.result === "V"){
+        round8D.push(groups.round16H[0]);
+      }else {
+        round8D.push(groups.round16H[1]);
+      }
+
+      return {round8A, round8B, round8C, round8D,}
+  },
+
+  makeRound4: function (groups) {
+    let round4A = []
+    let round4B = []
+    
+
+    if(groups.round8A[0].round8.result === "V"){
+      round4A.push(groups.round8A[0]);
+    }else {
+      round4A.push(groups.round8A[1]);
+    }
+
+    if(groups.round8B[0].round8.result === "V"){
+      round4A.push(groups.round8B[0]);
+    }else {
+      round4A.push(groups.round8B[1]);
+    }
+
+    if(groups.round8C[0].round8.result === "V"){
+      round4B.push(groups.round8C[0]);
+    }else {
+      round4B.push(groups.round8C[1]);
+    }
+
+    if(groups.round8D[0].round8.result === "V"){
+      round4B.push(groups.round8D[0]);
+    }else {
+      round4B.push(groups.round8D[1]);
+    }
+
+    return {round4A, round4B}
+},
+
+makeFinal: function (groups) {
+  let roundFinal = []
+  
+
+  if(groups.round4A[0].round4.result === "V"){
+    roundFinal.push(groups.round4A[0]);
+  }else {
+    roundFinal.push(groups.round4A[1]);
+  }
+
+  if(groups.round4B[0].round4.result === "V"){
+    roundFinal.push(groups.round4B[0]);
+  }else {
+    roundFinal.push(groups.round4B[1]);
+  }
+
+
+  return {roundFinal};
+},
+
+    simulateMatch: function () {
+      let goalsTeam1 = 0;
+      let goalsTeam2 = 0;
+      let penaltyShootoutTeam1 = 0;
+      let penaltyShootoutTeam2 = 0;
+      let resultTeam1 = null;
+      let resultTeam2 = null;
+      
+      
+      goalsTeam1 = Math.ceil(Math.random() * 5);
+      goalsTeam2 = Math.ceil(Math.random() * 5);
+      if(goalsTeam1 > goalsTeam2){
+        resultTeam1 = "V";
+        resultTeam2 = "D";
+      }else if(goalsTeam1 < goalsTeam2){
+        resultTeam2 = "V"
+        resultTeam1 = "D";
+      }else {
+        let possibilities = [{T1: 3, T2: 0}, {T1: 3, T2: 1}, {T1: 4, T2: 2}, 
+        {T1: 5, T2: 4}, {T1: 5, T2: 3}, {T1: 6, T2: 5}, {T1: 7, T2: 6}, 
+        {T1: 0, T2: 3}, {T1: 1, T2: 3}, {T1: 2, T2: 4}, {T1: 4, T2: 5}, 
+        {T1: 3, T2: 5}, {T1: 5, T2: 6}, {T1: 6, T2: 7}];
+        
+        let n1 = Math.ceil(Math.random() * 14 - 1)
+        console.log(n1);
+        let penaltyResult1 = possibilities[n1].T1;
+        let penaltyResult2 = possibilities[n1].T2;
+
+        penaltyShootoutTeam1 = penaltyResult1;
+        penaltyShootoutTeam2 = penaltyResult2;
+
+        if(penaltyShootoutTeam1 === penaltyShootoutTeam2){
+          penaltyShootoutTeam1+= 1;
+        }
+
+        if(penaltyShootoutTeam1 > penaltyShootoutTeam2){
+          resultTeam1 = "V";
+          resultTeam2 = "D";
+        }else {
+          resultTeam2 = "V";
+          resultTeam1 = "D";
+        }
+      }
+
+      return {goalsTeam1, goalsTeam2, penaltyShootoutTeam1, penaltyShootoutTeam2, resultTeam1, resultTeam2}
+    },
+
+    playRound16: function(matchs){
+      let matchResult;
+
+      //Oitavas 1
+      matchResult = this.simulateMatch();
+      matchs.round16A[0].round16 = {
+       goals: matchResult.goalsTeam1,
+       penaltyShootout: matchResult.penaltyShootoutTeam1,
+       result: matchResult.resultTeam1
+      }
+      matchs.round16A[1].round16 = {
+        goals: matchResult.goalsTeam2,
+        penaltyShootout: matchResult.penaltyShootoutTeam2,
+        result: matchResult.resultTeam2
+       }
+
+      //Oitavas 2 
+      matchResult = this.simulateMatch();
+      matchs.round16B[0].round16 = {
+       goals: matchResult.goalsTeam1,
+       penaltyShootout: matchResult.penaltyShootoutTeam1,
+       result: matchResult.resultTeam1
+      }
+      matchs.round16B[1].round16 = {
+        goals: matchResult.goalsTeam2,
+        penaltyShootout: matchResult.penaltyShootoutTeam2,
+        result: matchResult.resultTeam2
+       }
+
+       //Oitavas 3 
+      matchResult = this.simulateMatch();
+      matchs.round16C[0].round16 = {
+       goals: matchResult.goalsTeam1,
+       penaltyShootout: matchResult.penaltyShootoutTeam1,
+       result: matchResult.resultTeam1
+      }
+      matchs.round16C[1].round16 = {
+        goals: matchResult.goalsTeam2,
+        penaltyShootout: matchResult.penaltyShootoutTeam2,
+        result: matchResult.resultTeam2
+       }
+
+       //Oitavas 4 
+      matchResult = this.simulateMatch();
+      matchs.round16D[0].round16 = {
+       goals: matchResult.goalsTeam1,
+       penaltyShootout: matchResult.penaltyShootoutTeam1,
+       result: matchResult.resultTeam1
+      }
+      matchs.round16D[1].round16 = {
+        goals: matchResult.goalsTeam2,
+        penaltyShootout: matchResult.penaltyShootoutTeam2,
+        result: matchResult.resultTeam2
+       }
+
+       //Oitavas 5 
+      matchResult = this.simulateMatch();
+      matchs.round16E[0].round16 = {
+       goals: matchResult.goalsTeam1,
+       penaltyShootout: matchResult.penaltyShootoutTeam1,
+       result: matchResult.resultTeam1
+      }
+      matchs.round16E[1].round16 = {
+        goals: matchResult.goalsTeam2,
+        penaltyShootout: matchResult.penaltyShootoutTeam2,
+        result: matchResult.resultTeam2
+       }
+
+       //Oitavas 6 
+      matchResult = this.simulateMatch();
+      matchs.round16F[0].round16 = {
+       goals: matchResult.goalsTeam1,
+       penaltyShootout: matchResult.penaltyShootoutTeam1,
+       result: matchResult.resultTeam1
+      }
+      matchs.round16F[1].round16 = {
+        goals: matchResult.goalsTeam2,
+        penaltyShootout: matchResult.penaltyShootoutTeam2,
+        result: matchResult.resultTeam2
+       }
+
+       //Oitavas 7 
+      matchResult = this.simulateMatch();
+      matchs.round16G[0].round16 = {
+       goals: matchResult.goalsTeam1,
+       penaltyShootout: matchResult.penaltyShootoutTeam1,
+       result: matchResult.resultTeam1
+      }
+      matchs.round16G[1].round16 = {
+        goals: matchResult.goalsTeam2,
+        penaltyShootout: matchResult.penaltyShootoutTeam2,
+        result: matchResult.resultTeam2
+       }
+
+      //Oitavas 8 
+      matchResult = this.simulateMatch();
+      matchs.round16H[0].round16 = {
+       goals: matchResult.goalsTeam1,
+       penaltyShootout: matchResult.penaltyShootoutTeam1,
+       result: matchResult.resultTeam1
+      }
+      matchs.round16H[1].round16 = {
+        goals: matchResult.goalsTeam2,
+        penaltyShootout: matchResult.penaltyShootoutTeam2,
+        result: matchResult.resultTeam2
+       }
+
+       return matchs;
+
+    },
+
+    playRound8: function (matchs) {
+      let matchResult;
+
+      //Quartas 1
+      matchResult = this.simulateMatch();
+      matchs.round8A[0].round8 = {
+       goals: matchResult.goalsTeam1,
+       penaltyShootout: matchResult.penaltyShootoutTeam1,
+       result: matchResult.resultTeam1
+      }
+      matchs.round8A[1].round8 = {
+        goals: matchResult.goalsTeam2,
+        penaltyShootout: matchResult.penaltyShootoutTeam2,
+        result: matchResult.resultTeam2
+       }
+
+      //Quartas 2 
+      matchResult = this.simulateMatch();
+      matchs.round8B[0].round8 = {
+       goals: matchResult.goalsTeam1,
+       penaltyShootout: matchResult.penaltyShootoutTeam1,
+       result: matchResult.resultTeam1
+      }
+      matchs.round8B[1].round8 = {
+        goals: matchResult.goalsTeam2,
+        penaltyShootout: matchResult.penaltyShootoutTeam2,
+        result: matchResult.resultTeam2
+       }
+
+       //Quartas 3 
+      matchResult = this.simulateMatch();
+      matchs.round8C[0].round8 = {
+       goals: matchResult.goalsTeam1,
+       penaltyShootout: matchResult.penaltyShootoutTeam1,
+       result: matchResult.resultTeam1
+      }
+      matchs.round8C[1].round8 = {
+        goals: matchResult.goalsTeam2,
+        penaltyShootout: matchResult.penaltyShootoutTeam2,
+        result: matchResult.resultTeam2
+       }
+
+       //Quartas 4 
+      matchResult = this.simulateMatch();
+      matchs.round8D[0].round8 = {
+       goals: matchResult.goalsTeam1,
+       penaltyShootout: matchResult.penaltyShootoutTeam1,
+       result: matchResult.resultTeam1
+      }
+      matchs.round8D[1].round8 = {
+        goals: matchResult.goalsTeam2,
+        penaltyShootout: matchResult.penaltyShootoutTeam2,
+        result: matchResult.resultTeam2
+       }
+
+
+       return matchs;
+    },
+
+    playRound4: function (matchs) {
+      let matchResult;
+
+      //Semifinal 1
+      matchResult = this.simulateMatch();
+      matchs.round4A[0].round4 = {
+       goals: matchResult.goalsTeam1,
+       penaltyShootout: matchResult.penaltyShootoutTeam1,
+       result: matchResult.resultTeam1
+      }
+      matchs.round4A[1].round4 = {
+        goals: matchResult.goalsTeam2,
+        penaltyShootout: matchResult.penaltyShootoutTeam2,
+        result: matchResult.resultTeam2
+       }
+
+      //Semifinal 2 
+      matchResult = this.simulateMatch();
+      matchs.round4B[0].round4 = {
+       goals: matchResult.goalsTeam1,
+       penaltyShootout: matchResult.penaltyShootoutTeam1,
+       result: matchResult.resultTeam1
+      }
+      matchs.round4B[1].round4 = {
+        goals: matchResult.goalsTeam2,
+        penaltyShootout: matchResult.penaltyShootoutTeam2,
+        result: matchResult.resultTeam2
+       }
+
+       return matchs;
+    },
+
+    playFinal: function (matchs) {
+      let matchResult;
+
+      //Final 1
+      matchResult = this.simulateMatch();
+      matchs.roundFinal[0].final = {
+       goals: matchResult.goalsTeam1,
+       penaltyShootout: matchResult.penaltyShootoutTeam1,
+       result: matchResult.resultTeam1
+      }
+      matchs.roundFinal[1].final = {
+        goals: matchResult.goalsTeam2,
+        penaltyShootout: matchResult.penaltyShootoutTeam2,
+        result: matchResult.resultTeam2
+       }
+
+       return matchs;
+    },
+
+
+    playMatchsGroup: function (group) {
         //Rounds
         let newGroup = group;
       
@@ -225,6 +640,7 @@ makeGroups: function makeGroups(teams){
       const newGroups = {groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH}
 
       return newGroups;
-    }
+    },
+
 }
 export default simulator;

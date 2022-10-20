@@ -10,6 +10,10 @@ import simulator from "./simulator";
 function App() {
   const [teams, setTeams] = useState();
   const [groups, setGroups] = useState(null);
+  const [round16, setRound16] = useState(null);
+  const [round8, setRound8] = useState(null);
+  const [round4, setRound4] = useState(null);
+  const [final, setFinal] = useState(null);
   //const [simulationPlayed, setSimulationPlayed] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
@@ -39,15 +43,38 @@ function App() {
   }, [groups])
 
   useEffect(() => {
+    if(final){
+      console.log(final);
+    } 
+  }, [final])
+
+
+  useEffect(() => {
     if(teams){
       console.log(teams); 
       setGroups(simulator.makeGroups(teams));
     }     
   }, [teams])
 
-  const handlePlayMatchsGroups = (groups) => {      
+  const handlePlayMatchs = (groups) => {      
     const newGroups =  simulator.playAllGroups(groups);
     setGroups(newGroups);
+
+    const round16Simulation = simulator.playRound16(simulator.makeRound16(newGroups))
+    setRound16(round16Simulation);
+    //console.log(round16);
+
+    const round8Simulation = simulator.playRound8(simulator.makeRound8(round16Simulation));
+    setRound8(round8Simulation);
+    //console.log(round8);
+
+    const round4Simulation = simulator.playRound4(simulator.makeRound4(round8Simulation));
+    setRound4(round4Simulation);
+    console.log(round4);
+
+    const finalSimulation = simulator.playFinal(simulator.makeFinal(round4Simulation));
+    setFinal(finalSimulation);
+    console.log(final);
 
     setShowModal(true);
   }
@@ -77,54 +104,54 @@ function App() {
           <TitleRound16Left>
             <Stage title="Oitavas de final" />
           </TitleRound16Left>
-          <Match />
-          <Match />
-          <Match />
-          <Match />
+          <Match round={16} match={round16?.round16A} />
+          <Match round={16} match={round16?.round16B} />
+          <Match round={16} match={round16?.round16C} />
+          <Match round={16} match={round16?.round16D} />
         </Round16Left>
 
         <Round8Left>
           <TitleRound8Left>
             <Stage title="Quartas de final" />
           </TitleRound8Left>
-          <Match />
-          <Match />
+          <Match round={8} match={round8?.round8A} />
+          <Match round={8} match={round8?.round8B} />
         </Round8Left>
 
         <Round4Left>
           <TitleRound4>
             <StageFinals title="Semifinal" />
           </TitleRound4>
-          <Match />
+          <Match round={4} match={round4?.round4A} />
         </Round4Left>
 
         <Final>
           <TitleFinal>
             <StageFinals title="Final" />
           </TitleFinal>
-          <Match />
+          <Match round="FINAL" match={final?.roundFinal}/>
         </Final>
 
         <Round4Right>
-          <Match />
+          <Match round={4} match={round4?.round4B}/>
         </Round4Right>
 
         <Round8Right>
           <TitleRound8Right>
             <Stage title="Quartas de Final" />
           </TitleRound8Right>
-          <Match />
-          <Match />
+          <Match round={8} match={round8?.round8C} />
+          <Match round={8} match={round8?.round8D}/>
         </Round8Right>
 
         <Round16Right>
           <TitleRound16Right>
             <Stage title="Oitavas de Final" />
           </TitleRound16Right>
-          <Match />
-          <Match />
-          <Match />
-          <Match />
+          <Match round={16} match={round16?.round16E} />
+          <Match round={16} match={round16?.round16F} />
+          <Match round={16} match={round16?.round16G} />
+          <Match round={16} match={round16?.round16H} />
         </Round16Right>
 
         <RightGroupsStage>
@@ -138,7 +165,7 @@ function App() {
         </RightGroupsStage>
       </Groups>
 
-      <Button onClick={() => handlePlayMatchsGroups(groups)}>Simule já!</Button>
+      <Button onClick={() => handlePlayMatchs(groups)}>Simule já!</Button>
     </Container>
     
     </>
