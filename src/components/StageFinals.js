@@ -16,4 +16,8 @@ const Title = styled.p`
     letter-spacing: 3px;
     text-transform: uppercase;
     color: #df7000;
+
+    @media (max-width: 768px) {
+      font-size: 25px;
+    }
 `

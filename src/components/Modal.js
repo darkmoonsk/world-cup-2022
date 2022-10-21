@@ -115,17 +115,18 @@ function Modal(props) {
             </GroupStage>
         </ModalBody>
         <ModalFooter>
-          <Button onClick={props.onClose}>Close</Button>
+          <Button onClick={props.onClose}>Fechar</Button>
         </ModalFooter>
       </ModalContent>
     </ModalContainer>
   );
 }
 
+
 export default Modal;
 
 const ModalContainer = styled.div`
-  z-index: 999;
+  z-index: 100;
   position: fixed;
   left: 0;
   top: 0;
@@ -137,7 +138,6 @@ const ModalContainer = styled.div`
   justify-content: center;
 
   @media (max-width: 1200px) {
-    z-index: 999;
     position: absolute;
   }
 `;
@@ -181,7 +181,8 @@ const GroupStage = styled.div`
     
     
     @media (max-width: 360px){
-      flex-direction: column;
+      ${'' /* flex-direction: column; */}
+    }
       
 `
 const Group = styled.div`

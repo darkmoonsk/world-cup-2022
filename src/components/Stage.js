@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import * as styles from "../Variables"
 
 function Stage(props) {
   return (
@@ -18,7 +19,15 @@ const Title = styled.p`
     writing-mode: vertical-lr;
     color: #df7000;
 
-    @media (max-width: 1700px) {
+    @media (max-width: ${styles.MEDIA_MAXWIDTH}) {
       writing-mode: initial;
+    }
+
+    @media (max-width: 1260px) {
+      marging-top: 25px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 25px;
     }
 `

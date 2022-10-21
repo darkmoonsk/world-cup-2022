@@ -10,7 +10,10 @@ body {
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #8B1638;    
-  background: radial-gradient(circle, rgba(139,22,56,1) 50%, rgba(46,45,45,1) 100%);
-  
+  background: #8B1638;   
+  background-image: url("./images/soccerball.png"), radial-gradient(circle, rgba(139,22,56,1) 50%, rgba(46,45,45,1) 100%);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-attachment: fixed;
 }
