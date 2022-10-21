@@ -29,6 +29,7 @@ const Logo = styled.img`
 const Groups = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin-top: 30px;
   justify-content: space-between;
 
   @media (max-width: ${styles.MEDIA_MAXWIDTH}) {
