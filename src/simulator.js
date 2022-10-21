@@ -361,7 +361,7 @@ const simulator = {
       newGroup[3].victories += 1;
     } else {
       newGroup[3].beTied += 1;
-      newGroup[2].beTied += 1;
+      newGroup[1].beTied += 1;
     }
 
     //Rodada 3
@@ -384,15 +384,15 @@ const simulator = {
     }
 
     //Calculando a pontuação de cada seleção
-    newGroup[0].points = newGroup[0].victories * 3 + newGroup[0].beTied;
-    newGroup[1].points = newGroup[1].victories * 3 + newGroup[1].beTied;
-    newGroup[2].points = newGroup[2].victories * 3 + newGroup[2].beTied;
-    newGroup[3].points = newGroup[3].victories * 3 + newGroup[3].beTied;
+    newGroup[0].points = (newGroup[0].victories * 3) + newGroup[0].beTied;
+    newGroup[1].points = (newGroup[1].victories * 3) + newGroup[1].beTied;
+    newGroup[2].points = (newGroup[2].victories * 3) + newGroup[2].beTied;
+    newGroup[3].points = (newGroup[3].victories * 3) + newGroup[3].beTied;
 
     //Calculando o Saldo de gols
     newGroup[0].sg =
-      newGroup[0].goals.round1 -
-      newGroup[1].goals.round1 +
+      (newGroup[0].goals.round1 -
+      newGroup[1].goals.round1) +
       (newGroup[0].goals.round2 - newGroup[2].goals.round2) +
       (newGroup[0].goals.round3 - newGroup[3].goals.round3);
 
@@ -403,14 +403,14 @@ const simulator = {
       (newGroup[1].goals.round3 - newGroup[2].goals.round3);
 
     newGroup[2].sg =
-      newGroup[2].goals.round1 -
-      newGroup[3].goals.round1 +
+      (newGroup[2].goals.round1 -
+      newGroup[3].goals.round1) +
       (newGroup[2].goals.round2 - newGroup[0].goals.round2) +
       (newGroup[2].goals.round3 - newGroup[1].goals.round3);
 
     newGroup[3].sg =
-      newGroup[3].goals.round1 -
-      newGroup[2].goals.round1 +
+      (newGroup[3].goals.round1 -
+      newGroup[2].goals.round1) +
       (newGroup[3].goals.round2 - newGroup[1].goals.round2) +
       (newGroup[3].goals.round3 - newGroup[0].goals.round3);
 
