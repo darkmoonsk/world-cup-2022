@@ -1,7 +1,7 @@
 # Qatar World Cup 2022
 Desafio de projeto para Estágio Geopost, simulando os confrontos e os resultados da copa do mundo de forma aleatoria.
 
-### Acesse usando o link: https://world-cup-2022-one.vercel.app/
+### Acesse usando o link: <a href="https://world-cup-2022-one.vercel.app/" target="_blank">https://world-cup-2022-one.vercel.app/<a>
 
 ![world-cup-2022](https://user-images.githubusercontent.com/101902194/197263804-6e15b88c-10ff-498a-bccc-19e96f1f0bca.png)
 
