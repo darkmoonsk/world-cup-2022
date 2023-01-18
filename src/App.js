@@ -27,6 +27,7 @@ import Stage from "./components/Stage";
 import StageFinals from "./components/StageFinals";
 import Modal from "./components/Modal";
 import simulator from "./simulator";
+import data from "./teams";
 
 function App() {
   const [teams, setTeams] = useState();
@@ -38,7 +39,9 @@ function App() {
   const [showModal, setShowModal] = useState(false);
 
   const handleGetTeams = async () => {
-    const options = {
+    
+    // API Indisponivel
+    /* const options = {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -50,8 +53,12 @@ function App() {
       "https://estagio.geopostenergy.com/WorldCup/GetAllTeams",
       options
     );
-    const teamsData = await data.json();
-    setTeams(teamsData.Result);
+
+    const data = await fetch("./teams.json");
+    const teamsData = await data.json(); */
+
+    console.log(data);
+    setTeams(data);
   };
 
   const handleSendChampion = async (final) => {
