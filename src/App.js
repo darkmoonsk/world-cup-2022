@@ -61,29 +61,31 @@ function App() {
     setTeams(data);
   };
 
-  const handleSendChampion = async (final) => {
-    const url = "https://estagio.geopostenergy.com/WorldCup/InsertFinalResult";
-    const data = {
-      equipeA: final.roundFinal[0].Token,
-      equipeB: final.roundFinal[1].Token,
-      golsEquipeA: final.roundFinal[0].final.goals,
-      golsEquipeB: final.roundFinal[1].final.goals,
-      golsPenaltyTimeA: final.roundFinal[0].final.penaltyShootout,
-      golsPenaltyTimeB: final.roundFinal[1].final.penaltyShootout,
-    };
-    const options = {
-      method: "POST",
-      headers: new Headers({
-        "Content-Type": "application/json",
-        "git-user": "darkmoonsk",
-      }),
-      body: JSON.stringify(data),
-    };
 
-    const response = await fetch(url, options);
+// API Indisponivel
+//   const handleSendChampion = async (final) => {
+//     const url = "https://estagio.geopostenergy.com/WorldCup/InsertFinalResult";
+//     const data = {
+//       equipeA: final.roundFinal[0].Token,
+//       equipeB: final.roundFinal[1].Token,
+//       golsEquipeA: final.roundFinal[0].final.goals,
+//       golsEquipeB: final.roundFinal[1].final.goals,
+//       golsPenaltyTimeA: final.roundFinal[0].final.penaltyShootout,
+//       golsPenaltyTimeB: final.roundFinal[1].final.penaltyShootout,
+//     };
+//     const options = {
+//       method: "POST",
+//       headers: new Headers({
+//         "Content-Type": "application/json",
+//         "git-user": "darkmoonsk",
+//       }),
+//       body: JSON.stringify(data),
+//     };
 
-    return response.json();
-  };
+//     const response = await fetch(url, options);
+
+//     return response.json();
+//   };
 
   useEffect(() => {
     handleGetTeams();
@@ -95,13 +97,13 @@ function App() {
     }
   }, [teams]);
 
-  useEffect(() => {
-    if (final) {
-      handleSendChampion(final).then((data) => {
-        console.log(data);
-      });
-    }
-  }, [final]);
+//   useEffect(() => {
+//     if (final) {
+//       handleSendChampion(final).then((data) => {
+//         console.log(data);
+//       });
+//     }
+//   }, [final]);
 
   const handlePlayMatchs = (groups) => {
     const newGroups = simulator.playAllGroups(groups);
@@ -113,17 +115,17 @@ function App() {
     setRound16(round16Simulation);
 
     const round8Simulation = simulator.playRound8(
-      simulator.makeRound8(round16Simulation)
+      simulator.makeRound(round16Simulation, 8)
     );
     setRound8(round8Simulation);
 
     const round4Simulation = simulator.playRound4(
-      simulator.makeRound4(round8Simulation)
+      simulator.makeRound(round8Simulation, 4)
     );
     setRound4(round4Simulation);
 
     const finalSimulation = simulator.playFinal(
-      simulator.makeFinal(round4Simulation)
+      simulator.makeRound(round4Simulation, 2)
     );
     setFinal(finalSimulation);
 
@@ -211,7 +213,7 @@ function App() {
           <TitleFinal>
             <StageFinals title="Final" />
           </TitleFinal>
-          <Match round="FINAL" match={final?.roundFinal} />
+          <Match round="FINAL" match={final?.round2A} />
         </Final>
       </Groups>
 
